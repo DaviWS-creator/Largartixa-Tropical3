@@ -1,0 +1,829 @@
+programa
+{
+	inclua biblioteca Util --> u
+
+	inteiro vida, vida_maxima, mana, mana_maximo, forca, constituicao, destreza_maximo, destreza, inteligencia, carisma, sabedoria, furtividade, folego, folego_maximo
+	inteiro trembolona, pocao_mana, pocao_cura
+	inteiro vida_inimigo, destreza_inimigo
+	logico envenenado = falso
+	logico inimigo_venenoso = falso
+	logico habilidade_furtividade = falso
+	cadeia inventario[10]
+	cadeia ataques[4]
+	cadeia magias[4]
+	cadeia nome_inimigo
+	
+	//Stats dos personagens
+	//Vida varia conforme o personagem toma dano e se cura, já a vida máxima sempre permanece a mesma.
+	//Constituição: influencia a vida e a resistência a status negativos.
+	//Força: capacidade do personagem de empunhar armas grandes e/ou pesadas, empurrar objetos e combate corpo-a-corpo.
+	//Destreza: capacidade do personagem de empunhar armas exijam técnica em vez de força bruta (espadas curvas, adagas, arcos, etc) e manusear equipamentos que exijam aptidão com as mãos, como agulhas.
+	//Carisma: capacidade de intimidar (também influenciada pela força) ou persuadir (também influenciada pela inteligência) os demais.
+	//Sabedoria: quantidede de mana e capacidade de lançar certas magias.
+	//Furtividade: capacidade de passar despercebido, roubar itens e arrombar fechaduras com gazuas.
+	//Folego define quantas ações você poderá fazer em um turno durante um combate. Volta ao máximo no início de cada turno.
+	//Habilidade furtividade é um modo que o agente secreto pode ativar, lhe dando vantagens em combate
+
+	funcao inicio()
+	{
+		/*escreva("Olá, aventureiro.")
+		u.aguarde(3000)
+		limpa()
+		escreva("Este é o terceiro e último capítulo da aventura da grande Lagartixa Tropical.")
+		u.aguarde(3000)
+		limpa()
+		escreva("Durante suas aventuras, a Lagartixa Tropical salvou muitas pessoas.")
+		u.aguarde(3000)
+		limpa()
+		escreva("Mas desta vez, ela é quem precisará ser salva.")
+		u.aguarde(3000)
+		limpa()
+		escreva("Suas escolhas definirão o destino de tudo e todos ao seu redor.")
+		u.aguarde(3000)
+		limpa()
+		escreva("Tenha sabedoria, e lembre-se: nem todos podem ser salvos.")
+		u.aguarde(3000)
+		limpa()*/
+		escolha_classe()
+		combate()
+	}
+
+	funcao escolha_classe(){
+
+		inteiro resposta
+		
+		//escreva("É hora de escolher sua classe.")
+		//u.aguarde(3000)
+		//limpa()
+
+		faca{
+
+			escreva("1 --> Marombeiro \n")
+			escreva("2 --> Luthier \n")
+			escreva("3 --> Professor de Química \n")
+			escreva("4 --> Político \n")
+			escreva("5 --> Agente Secreto \n")
+			escreva("Escolha sua classe: ")
+			leia(resposta)
+			
+			escolha(resposta){
+
+				caso 1:
+				escreva("-----MAROMBEIRO----- \n")
+				//escreva("Pontos de Vida: 40 \n")
+				escreva("Força: 20 \n")
+				escreva("Constituição: 15 \n")
+				escreva("Destreza: 6 \n")
+				escreva("Inteligência: 6 \n")
+				escreva("Carisma: 12 \n")
+				escreva("Sabedoria: 2 \n")
+				escreva("Furtividade: 0 \n")
+				escreva("Fôlego: 20 \n")
+
+				escreva("-----Descrição----- \n")
+				escreva("Você dedicou grande parte sua vida às academias e ao uso de esteroides, competindo em campeonatos de fisiculturismo e ganhando diversos troféus. \n")
+				escreva("Após uma carreira de sucesso, é hora de pendurar os halteres e viver pacificamente, gerenciando uma pequena loja no centro da cidade. \n")
+
+			     escreva("Você quer continuar com essa classe? \n[0]Sim \n[1]Não: ")
+			     leia(resposta)
+
+			     enquanto(resposta != 0 e resposta != 1){
+			     	escreva("Opção inválida.")
+			     	leia(resposta)
+			     }
+
+			     se(resposta == 0){
+
+			     	vida = 40
+			     	vida_maxima = 40
+			     	forca = 20
+			     	constituicao = 15
+			     	destreza_maximo = 15
+			     	destreza = 6
+			     	inteligencia = 6
+			     	carisma = 12
+			     	sabedoria = 2
+			     	furtividade = 0
+			     	folego = 20
+			     	folego_maximo = 20
+			     	mana = 0
+			     	mana_maximo = 0
+
+			     	inventario[0] = "Trembolona"
+			     	inventario[1] = "Machado"
+			     	inventario[2] = "Poção de Cura"
+			     	pocao_cura = 3
+			     	pocao_mana = 0
+			     	trembolona = 3
+
+			     	ataques[0] = "Ataque com Machado"
+			     	ataques[1] = "Soco"
+			     }
+			     limpa()
+			     pare
+
+			     caso 2:
+			     escreva("-----LUTHIER----- \n")
+			     //escreva("Pontos de Vida: 20 \n")
+				escreva("Força: 6 \n")
+				escreva("Constituição: 9 \n")
+				escreva("Destreza: 20 \n")
+				escreva("Inteligência: 10 \n")
+				escreva("Carisma: 15 \n")
+				escreva("Sabedoria: 2 \n")
+				escreva("Furtividade: 6 \n")
+				escreva("Fôlego: 12 \n")
+
+				escreva("-----Descrição----- \n")
+				escreva("Quando adolescente, você admirava ícones da guitarra como Eddie Van Halen e Steve Vai, sonhando em se tornar uma lenda do rock. \n")
+				escreva("Já adulto, você descobre dentro de si uma paixão pela arte da construção e manutenção das guitarras, se tornando um mestre luthier.  \n")
+				escreva("Após anos no ramo, você decide entrar em um período sabático, gerenciando uma pequena loja no centro da cidade. \n ")
+
+			     escreva("Você quer continuar com essa classe? \n[0]Sim \n[1]Não: ")
+			     leia(resposta)
+
+			     	enquanto(resposta != 0 e resposta != 1){
+			     		escreva("Opção inválida.")
+			     		leia(resposta)
+			     }
+
+			     se(resposta == 0){
+
+			     	vida = 20
+			     	vida_maxima = 20
+			     	forca = 6
+			     	constituicao = 9
+			     	destreza_maximo = 9
+			     	destreza = 20
+			     	inteligencia = 10
+			     	carisma = 15
+			     	sabedoria = 2
+			     	furtividade = 6
+			     	folego = 12
+			     	folego_maximo = 12
+			     	mana = 0
+			     	mana_maximo = 0
+
+			     	ataques[0] = "Ataque com Lança"
+			     	ataques[1] = "Arco e Flecha"
+			     	pocao_cura = 3
+			     	pocao_mana = 0
+			     	trembolona = 0
+
+			     	inventario[0] = "Flechas"
+			     	inventario[1] = "Arco de Combate"
+			     	inventario[2] = "Poção de Cura"
+			     	inventario[3] = "Lança"
+
+			     }
+			     limpa()
+			     pare
+
+			     caso 3:
+			     escreva("-----PROFESSOR DE QUÍMICA---- \n")
+			     //escreva("Pontos de Vida: 25 \n")
+				escreva("Força: 6 \n")
+				escreva("Constituição: 6 \n")
+				escreva("Destreza: 8 \n")
+				escreva("Inteligência: 20 \n")
+				escreva("Carisma: 12 \n")
+				escreva("Sabedoria: 18 \n")
+				escreva("Furtividade: 7 \n")
+				escreva("Fôlego: 12 \n")
+
+				escreva("-----Descrição----- \n")
+				escreva("O seu fascínio pela natureza e a forma como seus elementos se interagem o fizeram seguir a carreira de químico, trabalhando em um laboratório de pesquisa na maior universidade do planeta. \n")
+				escreva("Durante um experimento, você acidentalmente entra em contato com uma substância radioativa, fazendo com que adquirisse aptidão com magia.  \n")
+				escreva("Devido ao acidente, você teve que se afastar da vida de pesquisa, e agora gerencia uma pequena loja no centro da cidade. \n ")
+
+			     escreva("Você quer continuar com essa classe? \n[0]Sim \n[1]Não: ")
+			     leia(resposta)
+
+			     	enquanto(resposta != 0 e resposta != 1){
+			     		escreva("Opção inválida.")
+			     		leia(resposta)
+			     }
+
+			     se(resposta == 0){
+
+			     	vida = 25
+			     	vida_maxima = 25
+			     	forca = 6
+			     	constituicao = 6
+			     	destreza_maximo = 6
+			     	destreza = 8
+			     	inteligencia = 20
+			     	carisma = 12
+			     	sabedoria = 18
+			     	furtividade = 7
+			     	folego = 12
+			     	folego_maximo = 12
+			     	mana = 20
+			     	mana_maximo = 20
+					
+		     		inventario[2] = "Poção de Cura"
+		     		inventario[3] = "Poção de Mana"
+		     		pocao_cura = 3
+			     	pocao_mana = 3
+			     	trembolona = 0
+			     	
+		     		magias[0] = "Cura"
+		     		magias[1] = "Bola de Energia"
+			     }
+			     limpa()
+				pare
+
+			     caso 4:
+			     escreva("-----POLÍTICO---- \n")
+			     //escreva("Pontos de Vida: 15 \n")
+				escreva("Força: 8 \n")
+				escreva("Constituição: 10 \n")
+				escreva("Destreza: 8 \n")
+				escreva("Inteligência: 16 \n")
+				escreva("Carisma: 20 \n")
+				escreva("Sabedoria: 6 \n")
+				escreva("Furtividade: 10 \n")
+				escreva("Fôlego: 8 \n")
+
+				escreva("-----Descrição----- \n")
+				escreva("Você sempre foi popular na escola e o queridinho dos professores. Em casa, conseguia convencer seus pais a comprar qualquer presente. Nas festas, todos se impressionavam com sua capacidade de socializar. \n")
+				escreva("A vida adulta cheogou, e com ela, despertou dentro de você um senso crítico e uma enorme vontade de ajudar os outros. Você se torna um político honesto e íntegro, sempre ajudando os mais necessitados e combatendo a podridão dentro da prefeitura.  \n")
+				escreva("Todos os heróis devem descansar algum dia, e com você não é diferente. Gerencias uma loja no centro da cidade, sendo lembrado como um dos poucos políticos que de fato lutou em prol da população. \n ")
+
+			     escreva("Você quer continuar com essa classe? \n[0]Sim \n[1]Não: ")
+			     leia(resposta)
+
+			     	enquanto(resposta != 0 e resposta != 1){
+			     		escreva("Opção inválida.")
+			     		leia(resposta)
+			     }
+
+			     se(resposta == 0){
+
+			     	vida = 15
+			     	vida_maxima = 15
+			     	forca = 8
+			     	constituicao = 10
+			     	destreza_maximo = 10
+			     	destreza = 8
+			     	inteligencia = 16
+			     	carisma = 20
+			     	sabedoria = 6
+			     	furtividade = 10
+			     	folego = 8
+			     	folego_maximo = 8
+			     	mana = 0
+			     	mana_maximo = 0
+
+			     	ataques[0] = "Ataque com Faca"
+			     	ataques[1] = "Cusparada"
+			     	pocao_cura = 3
+			     	pocao_mana = 0
+			     	trembolona = 0
+			     	
+			     	inventario[1] = "Faca"
+			     	inventario[2] = "Poção de Cura"
+
+			     	//Essa classe não foi feita pensando em combate, e sim em utilizar a lábia para não ter que lutar.
+
+			     }
+			     limpa()
+				pare
+
+				caso 5:
+			     escreva("-----AGENTE SECRETO---- \n")
+			     escreva("Pontos de Vida: 10 \n")
+				escreva("Força: 4 \n")
+				escreva("Constituição: 2 \n")
+				escreva("Destreza: 16 \n")
+				escreva("Inteligência: 12 \n")
+				escreva("Carisma: 6 \n")
+				escreva("Sabedoria: 7 \n")
+				escreva("Furtividade: 20 \n")
+				escreva("Fôlego: 15 \n")
+
+				escreva("-----Descrição----- \n")
+				escreva(". \n")
+				escreva("Você dedicou sua vida servindo à nação por debaixo dos panos, se infiltrando em embaixadas, espionando reuniões secretas e se livrando de inimigos do estado.  \n")
+				escreva("Tudo que começa um dia chega ao fim, e com sua carreia de agente secreto não foi diferente. Como recompensa pelos seus anos de serviço, o governo te deu uma pequena loja no centro da cidade, onde você agora passas seus dias solitários. \n ")
+
+			     escreva("Você quer continuar com essa classe? \n[0]Sim \n[1]Não: ")
+			     leia(resposta)
+
+			     	enquanto(resposta != 0 e resposta != 1){
+			     		escreva("Opção inválida.")
+			     		leia(resposta)
+			     }
+
+			     se(resposta == 0){
+
+			     	vida = 10
+			     	vida_maxima = 10
+			     	forca = 4
+			     	constituicao = 2
+			     	destreza_maximo = 2
+			     	destreza = 16
+			     	inteligencia = 12
+			     	carisma = 6
+			     	sabedoria = 7
+			     	furtividade = 20
+			     	folego = 15
+			     	folego_maximo = 15
+			     	mana = 0
+			     	mana_maximo = 0
+
+					ataques[0] = "Ataque com Faca"
+					ataques[1] = "Furtividade"
+					ataques[2] = "Pistola Silenciada"
+
+			     	pocao_cura = 3
+			     	pocao_mana = 0
+			     	trembolona = 0
+
+					inventario[0] = "Pistola Silenciada"	
+					inventario[1] = "Faca"
+					inventario[2] = "Poção de Cura"
+					
+			     }
+			     limpa()
+				pare
+
+				caso contrario:
+				escreva("Opção inválida.")
+				u.aguarde(1500)
+			     limpa()
+				pare
+			}
+		}enquanto(resposta != 0)
+}
+	funcao combate(){
+			inteiro acao, dano
+			inteiro acerto //defini se um ataque vai acertar ou não
+			inteiro golpe //escolhe o ataque físico desejado
+			inteiro item //escolhe o item desejado
+			inteiro magico //escolhe a magia desejada
+
+			inimigo_venenoso = verdadeiro
+			destreza_inimigo = 12
+			
+			escreva("Combate versão teste (funciona com todas as classes, exceto agente secreto).")
+			u.aguarde(2000)
+
+			vida_inimigo = 30
+
+			enquanto(vida_inimigo > 0 e vida > 0){
+			faca{
+				
+				se(vida_inimigo <= 0){
+					pare
+				}
+				
+				escreva("1. Ataque Físico \n")
+				escreva("2. Ataque com Magia \n")
+				escreva("3. Usar Item \n")
+				escreva("4. Defender\n")
+				escreva("5. Fim do turno \n\n")
+				escreva("PV: ", vida, "\nFôlego: ", folego,"\nMana: ", mana, "\nPV Inimigo: ", vida_inimigo, "\n")
+				escreva("Escolha sua ação: ")
+				leia(acao)
+				limpa()
+
+
+				escolha(acao){
+
+					caso 1:
+					para(inteiro i = 0; i < 4; i++){
+
+						se(ataques[i] != ""){
+
+							escreva(i+1, " -> ", ataques[i], "\n")
+							
+						}	
+					}
+					escreva("Escolha sua ação ou '0' para retornar: ")
+					leia(golpe)
+					
+					se(golpe == 1 e ataques[0] == "Ataque com Machado" e inventario[1] == "Machado" e folego >= 18){
+
+						folego -= 18
+
+						acerto = u.sorteia(0, 20)
+
+						se(acerto >= destreza_inimigo){
+							dano = u.sorteia(5, 15)
+							escreva("O inimigo tomou ", dano, " de dano.")
+							vida_inimigo -= dano
+							u.aguarde(2000)
+							limpa()
+
+						}
+
+						senao{
+							escreva("Você errou o ataque.")
+							u.aguarde(2000)
+						}
+					}
+					senao se(golpe == 1 e ataques[0] == "Ataque com Faca" e inventario[1] == "Faca" e folego >= 8){
+						
+						folego -= 8
+
+						acerto = u.sorteia(0, 20)
+
+						se(acerto >= destreza_inimigo){
+							dano = u.sorteia(1, 10)
+							escreva("O inimigo tomou ", dano, " de dano.")
+							vida_inimigo -= dano
+							u.aguarde(2000)
+							limpa()
+						}
+
+						senao{
+							escreva("Você errou o ataque.")
+							u.aguarde(2000)
+						}
+					}
+
+						senao se(golpe == 2 e ataques[1] == "Cusparada" e folego >= 1){
+						
+						folego -= 1
+
+						acerto = u.sorteia(0, 20)
+
+						se(acerto >= destreza_inimigo){
+
+							escreva("Você acerta uma cusparada no adversário, mas nada acontece.")
+							u.aguarde(2000)
+							limpa()
+						}
+
+						senao{
+							escreva("Você errou o ataque.")
+							u.aguarde(2000)
+						}
+						}
+					senao se(golpe == 1 e ataques[0] == "Ataque com Lança" e inventario[3] == "Lança" e folego >= 8){
+						
+						folego -= 8
+
+						acerto = u.sorteia(0, 20)
+
+						se(acerto >= destreza_inimigo){
+							dano = u.sorteia(5, 10)
+							escreva("O inimigo tomou ", dano, " de dano.")
+							vida_inimigo -= dano
+							u.aguarde(2000)
+							limpa()
+
+						}
+
+						senao{
+							escreva("Você errou o ataque.")
+							u.aguarde(2000)
+						}
+					}
+					senao se(golpe == 3 e ataques[2] == "Pistola Silenciada" e inventario[0] == "Pistola Silenciada" e folego >= 8){
+					
+						folego -= 8
+
+						acerto = u.sorteia(0, 20)
+
+						se(acerto >= destreza_inimigo){
+							dano = u.sorteia(5, 15)
+							escreva("O inimigo tomou ", dano, " de dano.")
+							vida_inimigo -= dano
+							u.aguarde(2000)
+							limpa()
+
+						}
+
+						senao{
+							escreva("Você errou o ataque.")
+							u.aguarde(2000)
+						}
+						
+					}
+					senao se(golpe == 2 e ataques[1] == "Arco e Flecha" e inventario[0] == "Flechas" e inventario[1] == "Arco de Combate" e folego >= 10){
+						
+						folego -= 10
+
+						acerto = u.sorteia(0, 20)
+
+						se(acerto >= destreza_inimigo){
+							dano = u.sorteia(10, 20)
+							escreva("O inimigo tomou ", dano, " de dano.")
+							vida_inimigo -= dano
+							u.aguarde(2000)
+							limpa()
+							
+						}
+
+						senao{
+							escreva("Você errou o ataque.")
+							u.aguarde(2000)
+						}
+					}
+					senao se(golpe == 2 e ataques[1] == "Soco" e folego >= 10){
+						
+						folego -= 10
+
+						acerto = u.sorteia(0, 20)
+
+						se(acerto >= destreza_inimigo){
+							dano = u.sorteia(1, 4)
+							escreva("O inimigo tomou ", dano, " de dano.")
+							vida_inimigo -= dano
+							u.aguarde(2000)
+							limpa()
+							
+						}
+						senao{
+							escreva("Você errou o ataque.")
+							u.aguarde(3000)
+						}
+					}
+					senao se(golpe == 0){
+						escreva("Voltando")
+						u.aguarde(500)
+						limpa()
+					}
+					senao{
+						escreva("Golpe inexistente ou fôlego insuficiente.")
+						u.aguarde(3000)
+						limpa()
+					}
+					
+					pare
+
+					caso 2:
+					para(inteiro j = 0; j < 4; j++){
+
+						se(magias[j] != ""){
+							
+							escreva(j+1, " -> ", magias[j], "\n")
+							
+						}
+					}
+					escreva("Escolha sua ação ou '0' para retornar: ")
+					leia(magico)
+					
+					se(magico == 1 e magias[0] == "Cura" e mana >= 7){
+
+						se(vida == vida_maxima){
+
+							escreva("Sua vida já está no máximo.")
+							u.aguarde(2000)
+							limpa()
+						}
+						senao{
+							
+							mana -= 7
+							dano = u.sorteia(1, 10)
+							vida += dano
+							se(vida > vida_maxima){
+								vida = vida - (vida-vida_maxima)
+								escreva("Você curou sua vida ao máximo.")
+								u.aguarde(2000)
+								limpa()
+							}
+							senao{
+								escreva("Você curou ", dano, " pontos de vida.")
+								u.aguarde(2000)
+								limpa()
+						}
+						}
+					}
+					senao se(magico == 2 e magias[1] == "Bola de Energia" e mana >= 15){
+						
+						mana -= 15
+
+						acerto = u.sorteia(0, 20)
+
+						se(acerto >= destreza_inimigo){
+							dano = u.sorteia(5, 15)
+							escreva("O inimigo tomou ", dano, " de dano.")
+							vida_inimigo -= dano
+							u.aguarde(2000)
+							limpa()
+
+						}
+						senao{
+							escreva("Você errou o ataque.")
+							u.aguarde(3000)
+							limpa()
+						}
+					}
+					senao se(magico == 0){
+						escreva("Voltando")
+						u.aguarde(500)
+						limpa()
+					}
+					senao{
+						escreva("Magia inexistente ou mana insuficiente.")
+						u.aguarde(3000)
+						limpa()
+					}
+					pare
+
+					caso 3:
+					para(inteiro k = 0; k < 4; k++){
+
+						se(inventario[k] != ""){
+
+							escreva(k+1, " -> ", inventario[k])
+							
+							se(inventario[k] == "Poção de Cura"){
+								escreva(" x", pocao_cura)
+							}
+
+							se(inventario[k] == "Poção de Mana"){
+								escreva(" x", pocao_mana)
+							}
+
+							se(inventario[k] == "Trembolona"){
+								escreva(" x", trembolona)
+							}
+							escreva("\n")
+						}
+					}	
+					escreva("Escolha sua ação '0' para retornar: ")
+					leia(item)
+					
+					se(item == 1 e inventario[0] == "Trembolona" e trembolona >= 1){
+
+						se(folego == folego_maximo){
+							escreva("Seu fôlego já está no máximo.")
+							u.aguarde(3000)
+							limpa()
+						}
+						senao{
+							
+							dano = u.sorteia(1, 10)
+							folego += dano
+							se(folego > folego_maximo){
+								folego = folego - (folego-folego_maximo)
+								escreva("Você recuperou seu fôlego ao máximo.")
+								u.aguarde(3000)
+								limpa()
+								trembolona --
+							}
+							senao{
+								escreva("Você recuperou ", dano, " pontos de fôlego.")
+								u.aguarde(2000)
+								limpa()
+								trembolona --
+					}
+						}
+					}
+					
+					senao se(item == 3 e inventario[2] == "Poção de Cura" e pocao_cura >= 1){
+						se(vida == vida_maxima){
+							escreva("Sua vida já está no máximo.")
+							u.aguarde(3000)
+							limpa()
+						}
+						senao{
+							
+							dano = u.sorteia(1, 10)
+							vida += dano
+							se(vida > vida_maxima){
+								vida = vida - (vida-vida_maxima)
+								escreva("Você curou sua vida ao máximo.")
+								pocao_cura --
+								u.aguarde(3000)
+								limpa()
+							}
+							senao{
+								escreva("Você curou ", dano, " pontos de vida.")
+								pocao_cura --
+								u.aguarde(2000)
+								limpa()
+					}
+						}
+					}
+					
+					senao se(item == 4 e inventario[3] == "Poção de Mana" e pocao_mana >= 1){
+						se(mana == mana_maximo){
+							escreva("Sua mana já está no máximo.")
+							u.aguarde(3000)
+							limpa()
+						}
+						senao{
+							
+							dano = u.sorteia(1, 10)
+							mana += dano
+							se(mana > mana_maximo){
+								mana = mana - (mana-mana_maximo)
+								escreva("Você curou sua mana ao máximo.")
+								pocao_mana --
+								u.aguarde(3000)
+								limpa()
+							}
+							senao{
+								escreva("Você curou ", dano, " pontos de mana.")
+								pocao_mana --
+								u.aguarde(2000)
+								limpa()
+					}
+						}
+					}
+					senao se (item == 0) {
+						escreva("Voltando")
+						u.aguarde(500)
+						limpa()
+					}
+					senao{
+						escreva("Este item é inexistente ou não pode ser utilizado agora.")
+						u.aguarde(3000)
+						limpa()
+					}
+					pare
+
+					caso 4:
+					se(folego >= 4){
+						destreza += 4
+						folego -= 4
+						escreva("Você recua e diminui as chances do inimigo te acertar.")
+						u.aguarde(3000)
+					}
+					senao{
+						escreva("Fôlego insuficiente.")
+						u.aguarde(3000)
+					}
+					pare
+
+					caso 5:
+
+					escreva("Fim do turno.")
+					pare
+					
+					caso contrario:
+					escreva("Ação inválida.")
+					u.aguarde(2000)
+					limpa()
+					pare
+				}
+			}enquanto(acao !=5)
+
+	//Turno do inimigo
+				
+				se(vida_inimigo <= 0){
+					pare
+				}
+				
+				limpa()
+				escreva("Turno inimigo. \n")
+
+				acerto = u.sorteia(0, 20)
+
+				se(acerto >= destreza){
+					dano = u.sorteia(5, 10)
+					vida -= dano
+					escreva("Você recebeu ", dano, " pontos de dano.")
+					u.aguarde(3000)
+					limpa()
+
+					se(inimigo_venenoso == verdadeiro){
+
+						acerto = u.sorteia(0, 20)
+
+						se(acerto > 15){
+							envenenado = verdadeiro
+							escreva("Você foi envenenado.")
+							u.aguarde(3000)
+							limpa()
+						}
+						
+					}
+				}
+				senao{
+					escreva("O inimigo errou o ataque.")
+					u.aguarde(3000)
+				}
+
+				folego = folego_maximo
+				mana = mana_maximo
+				destreza = destreza_maximo
+
+				se(envenenado == verdadeiro){
+
+					dano = u.sorteia(1, 3)
+					vida -= dano
+					escreva("Você tomou ", dano, " dano por envenenamento.")
+					u.aguarde(3000)
+					limpa()
+				}
+			}
+		}
+}
+
+/* $$$ Portugol Studio $$$ 
+ * 
+ * Esta seção do arquivo guarda informações do Portugol Studio.
+ * Você pode apagá-la se estiver utilizando outro editor.
+ * 
+ * @POSICAO-CURSOR = 8730; 
+ * @PONTOS-DE-PARADA = ;
+ * @SIMBOLOS-INSPECIONADOS = ;
+ * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
+ * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
+ */

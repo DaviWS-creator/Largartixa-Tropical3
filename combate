@@ -366,10 +366,14 @@ programa
 			inteiro item //escolhe o item desejado
 			inteiro magico //escolhe a magia desejada
 
+			escreva("Você entra em um combate contra ", nome_inimigo, ".")
+			u.aguarde(3000)
+			limpa()
+			
 			se(nome_inimigo == "Aranha"){     //aranha peão
 
-				destreza_inimigo = 12
-				destreza_inimigo_max = 12
+				destreza_inimigo = 8
+				destreza_inimigo_max = 8
 
 				const_inimigo = 8
 				
@@ -385,8 +389,8 @@ programa
 
 			senao se(nome_inimigo == "Aranha Gigante"){   //aranha comandanete
 
-				destreza_inimigo = 14
-				destreza_inimigo_max = 14
+				destreza_inimigo = 12
+				destreza_inimigo_max = 12
 
 				const_inimigo = 12
 				
@@ -402,8 +406,8 @@ programa
 
 			senao se(nome_inimigo == "Cavaleiro Escorpião"){   //escorpião cavaleiro
 
-				destreza_inimigo = 11
-				destreza_inimigo_max = 11
+				destreza_inimigo = 10
+				destreza_inimigo_max = 10
 
 				const_inimigo = 8
 				
@@ -419,8 +423,8 @@ programa
 
 			senao se(nome_inimigo == "Comandante Escorpião"){   //escorpião comandante
 
-				destreza_inimigo = 15
-				destreza_inimigo_max = 15
+				destreza_inimigo = 12
+				destreza_inimigo_max = 12
 
 				const_inimigo = 15
 				
@@ -442,11 +446,11 @@ programa
 				}
 
 				se(imobilizado == verdadeiro){
-					acerto = u.sorteia(0, 20) + forca
+					acerto = u.sorteia(0, 25) + forca
 
 					se(acerto >= 25){
 						escreva("Você consegue se libertar da imobilização, mas se cansa um pouco.")
-						folego -= 5
+						folego -= 3
 						imobilizado = falso
 					}
 
@@ -486,9 +490,9 @@ programa
 					escreva("Escolha sua ação ou '0' para retornar: ")
 					leia(golpe)
 					
-					se(golpe == 1 e ataques[0] == "Ataque com Machado" e inventario[1] == "Machado" e folego >= 18){
+					se(golpe == 1 e ataques[0] == "Ataque com Machado" e inventario[1] == "Machado" e folego >= 10){
 
-						folego -= 18
+						folego -= 10
 
 						acerto = u.sorteia(0, 20)
 
@@ -528,7 +532,7 @@ programa
 
 						senao se(golpe == 2 e ataques[1] == "Cusparada" e folego >= 1){
 						
-						folego -= 1
+						folego --
 
 						acerto = u.sorteia(0, 20)
 
@@ -606,9 +610,9 @@ programa
 							u.aguarde(2000)
 						}
 					}
-					senao se(golpe == 2 e ataques[1] == "Soco" e folego >= 10){
+					senao se(golpe == 2 e ataques[1] == "Soco" e folego >= 8){
 						
-						folego -= 10
+						folego -= 8
 
 						acerto = u.sorteia(0, 20)
 
@@ -650,7 +654,7 @@ programa
 					escreva("Escolha sua ação ou '0' para retornar: ")
 					leia(magico)
 					
-					se(magico == 1 e magias[0] == "Cura" e mana >= 7){
+					se(magico == 1 e magias[0] == "Cura" e mana >= 5){
 
 						se(vida == vida_maxima){
 
@@ -660,7 +664,7 @@ programa
 						}
 						senao{
 							
-							mana -= 7
+							mana -= 5
 							dano = u.sorteia(1, 10)
 							vida += dano
 							se(vida > vida_maxima){
@@ -676,9 +680,9 @@ programa
 						}
 						}
 					}
-					senao se(magico == 2 e magias[1] == "Bola de Energia" e mana >= 15){
+					senao se(magico == 2 e magias[1] == "Bola de Energia" e mana >= 8){
 						
-						mana -= 15
+						mana -= 8
 
 						acerto = u.sorteia(0, 20)
 
@@ -870,6 +874,13 @@ programa
 				senao se(nome_inimigo == "Aranha Gigante"){
 					aranha_gigante()
 				}
+				senao se(nome_inimigo == "Cavaleiro Escorpião"){
+					cavaleiro_escorpiao()
+				}
+				senao se(nome_inimigo == "Comandante Escorpião"){
+					comandante_escorpiao()
+				}
+				
 				folego = folego_maximo
 				mana = mana_maximo
 				destreza = destreza_maximo
@@ -938,15 +949,14 @@ programa
 
 	funcao aranha_gigante(){
 		
-		inteiro acao_utilizada = u.sorteia(0, 100)
+		inteiro acao_utilizada
 		inteiro acerto
 		inteiro dano
 
-	enquanto(folego_inimigo > 0)
-		se(acao_utilizada <= 90){   //ataque
-			
-			acao_utilizada = u.sorteia(0, 100)
+	enquanto(folego_inimigo > 0){
 
+		acao_utilizada = u.sorteia(0, 100)
+		
 			se(acao_utilizada <= 49 e folego_inimigo >= 8){   //mordida
 
 				folego_inimigo -= 8
@@ -983,16 +993,16 @@ programa
 				se(acerto >= destreza){
 					escreva("A aranha te imobiliza com sua teia.")
 					imobilizado = verdadeiro
+					u.aguarde(3000)
+					limpa()
 				}
 
 				senao{
 					escreva("A aranha erra o ataque.")
+					u.aguarde(3000)
+					limpa()
 				}
-
-				u.aguarde(3000)
-				limpa()
 			}
-		}
 
 		senao se(acao_utilizada >= 91 e folego_inimigo >= 4){
 
@@ -1007,14 +1017,18 @@ programa
 			pare
 		}
 	}
+	}
 
-	funcao cavaleiro_escopiao(){
-		inteiro acao_utilizada = u.sorteia(0, 100)
+	funcao cavaleiro_escorpiao(){
+		inteiro acao_utilizada
 		inteiro acerto
 		inteiro dano
 
 		enquanto(folego_inimigo > 0){
-			se(acao_utilizada <= 90 e folego >= 2){   //ferrão
+
+			acao_utilizada = u.sorteia(0, 100)
+			
+			se(acao_utilizada <= 90 e folego_inimigo >= 2){   //ferrão
 
 				folego_inimigo -= 3
 				acerto = u.sorteia(0, 20)
@@ -1023,7 +1037,7 @@ programa
 
 				se(acerto >= destreza){
 					dano = u.sorteia(1, 6)
-					escreva("O escorpião te acerta com o ferrão, dando ", dano, " de dano.")
+					escreva("O escorpião te acerta com o ferrão, dando ", dano, " de dano.\n")
 					vida -= dano
 
 					acerto = u.sorteia(0, 20)
@@ -1034,6 +1048,8 @@ programa
 						u.aguarde(3000)
 						limpa()
 					}
+					u.aguarde(3000)
+					limpa()
 				}
 
 				senao{
@@ -1042,7 +1058,7 @@ programa
 					limpa()
 				}
 			}
-			senao se(acao_utilizada >= 91 e folego >= 3){
+			senao se(acao_utilizada >= 91 e folego_inimigo >= 3){
 				escreva("O escorpião recua, diminuindo as chances de ser atinigido.")
 				destreza_inimigo += 4
 				u.aguarde(3000)
@@ -1056,21 +1072,22 @@ programa
 	}
 
 	funcao comandante_escorpiao(){
-		inteiro acao_utilizada = u.sorteia(0, 100)
+		inteiro acao_utilizada
 		inteiro acerto
 		inteiro dano
 
 		enquanto(folego_inimigo > 0){
-			se(acao_utilizada <= 49 e folego >= 2){   //ferrão
+
+			acao_utilizada = u.sorteia(0, 100)
+
+			se(acao_utilizada <= 25 e folego_inimigo >= 2){   //ferrão
 
 				folego_inimigo -= 3
 				acerto = u.sorteia(0, 20)
-
-				acerto = u.sorteia(0, 20)
-
+				
 				se(acerto >= destreza){
 					dano = u.sorteia(1, 7)
-					escreva("O Comandante Escopião te acerta com o ferrão, dando ", dano, " de dano.")
+					escreva("O Comandante Escopião te acerta com o ferrão, dando ", dano, " de dano.\n")
 					vida -= dano
 
 					acerto = u.sorteia(0, 20)
@@ -1078,9 +1095,9 @@ programa
 					se(acerto >= constituicao){
 						escreva("Você foi envenenado.")
 						envenenado = verdadeiro
-						u.aguarde(3000)
-						limpa()
 					}
+					u.aguarde(3000)
+					limpa()
 				}
 
 				senao{
@@ -1091,12 +1108,59 @@ programa
 
 			}
 
-			senao se(acao_utilizada >= 50 e acao_utilizada <= 90 e folego >= 8){   //garra
+			senao se(acao_utilizada >= 26 e acao_utilizada <= 65 e folego_inimigo >= 8){   //garra
 				
+				folego_inimigo -= 7
+				acerto = u.sorteia(0, 20)
+
+				se(acerto >= destreza){
+
+					dano = u.sorteia(5, 10)
+					escreva("O Comandante Escorpião te acerta com suas garras, dano ", dano, " de dano.\n")
+					vida -= dano
+					u.aguarde(3000)
+					limpa()
+				}
+
+				senao{
+
+					escreva("O inimigo errou o ataque.")
+					u.aguarde(3000)
+					limpa()
+				}
 			}
-			senao se(acao_utilizada >= 91 e folego >= 3){
+
+			senao se(acao_utilizada >= 66 e acao_utilizada <= 90 e folego_inimigo >= 15){   //garra e ferrão
+				
+				folego_inimigo -= 15
+				acerto = u.sorteia(0, 20)
+
+				se(acerto >= destreza){
+					
+					dano = u.sorteia(10, 15)
+					escreva("O Comandante Escorpião te ataca com as garras e o ferrão, dando ", dano, " de dano.\n")
+					vida -= dano
+
+					acerto = u.sorteia(0, 20)
+
+					se(acerto >= constituicao){
+						escreva("Você foi envenenado.")
+						envenenado = verdadeiro
+					}
+					u.aguarde(3000)
+					limpa()
+				}
+
+				senao{
+					escreva("O inimigo errou o ataque.")
+					u.aguarde(3000)
+					limpa()
+				}
+			}
+			senao se(acao_utilizada >= 91 e folego_inimigo >= 3){
 				escreva("O Comandante Escorpião recua, diminuindo as chances de ser atinigido.")
 				destreza_inimigo += 4
+				folego_inimigo -= 3
 				u.aguarde(3000)
 				limpa()
 			}

@@ -13,7 +13,7 @@ programa
 	cadeia ataques[4]
 	cadeia magias[4]
 	cadeia ataques_inimigo[4]   //inclui ataques físicos e magias
-	cadeia nome_inimigo
+	cadeia nome_inimigo = ""
 	
 	//Stats dos personagens
 	//Vida varia conforme o personagem toma dano e se cura, já a vida máxima sempre permanece a mesma.
@@ -76,7 +76,7 @@ programa
 				//escreva("Pontos de Vida: 40 \n")
 				escreva("Força: 20 \n")
 				escreva("Constituição: 15 \n")
-				escreva("Destreza: 6 \n")
+				escreva("Destreza: 12 \n")
 				escreva("Inteligência: 6 \n")
 				escreva("Carisma: 12 \n")
 				escreva("Sabedoria: 2 \n")
@@ -101,8 +101,8 @@ programa
 			     	vida_maxima = 40
 			     	forca = 20
 			     	constituicao = 15
-			     	destreza_maximo = 15
-			     	destreza = 6
+			     	destreza_maximo = 12
+			     	destreza = 12
 			     	inteligencia = 6
 			     	carisma = 12
 			     	sabedoria = 2
@@ -130,7 +130,7 @@ programa
 			     //escreva("Pontos de Vida: 20 \n")
 				escreva("Força: 6 \n")
 				escreva("Constituição: 9 \n")
-				escreva("Destreza: 20 \n")
+				escreva("Destreza: 15 \n")
 				escreva("Inteligência: 10 \n")
 				escreva("Carisma: 15 \n")
 				escreva("Sabedoria: 2 \n")
@@ -156,8 +156,8 @@ programa
 			     	vida_maxima = 20
 			     	forca = 6
 			     	constituicao = 9
-			     	destreza_maximo = 9
-			     	destreza = 20
+			     	destreza_maximo = 15
+			     	destreza = 15
 			     	inteligencia = 10
 			     	carisma = 15
 			     	sabedoria = 2
@@ -214,7 +214,7 @@ programa
 			     	vida_maxima = 25
 			     	forca = 6
 			     	constituicao = 6
-			     	destreza_maximo = 6
+			     	destreza_maximo = 8
 			     	destreza = 8
 			     	inteligencia = 20
 			     	carisma = 12
@@ -242,7 +242,7 @@ programa
 			     //escreva("Pontos de Vida: 15 \n")
 				escreva("Força: 8 \n")
 				escreva("Constituição: 10 \n")
-				escreva("Destreza: 8 \n")
+				escreva("Destreza: 6 \n")
 				escreva("Inteligência: 16 \n")
 				escreva("Carisma: 20 \n")
 				escreva("Sabedoria: 6 \n")
@@ -268,8 +268,8 @@ programa
 			     	vida_maxima = 15
 			     	forca = 8
 			     	constituicao = 10
-			     	destreza_maximo = 10
-			     	destreza = 8
+			     	destreza_maximo = 6
+			     	destreza = 6
 			     	inteligencia = 16
 			     	carisma = 20
 			     	sabedoria = 6
@@ -290,63 +290,6 @@ programa
 
 			     	//Essa classe não foi feita pensando em combate, e sim em utilizar a lábia para não ter que lutar.
 
-			     }
-			     limpa()
-				pare
-
-				caso 5:
-			     escreva("-----AGENTE SECRETO---- \n")
-			     escreva("Pontos de Vida: 10 \n")
-				escreva("Força: 4 \n")
-				escreva("Constituição: 2 \n")
-				escreva("Destreza: 16 \n")
-				escreva("Inteligência: 12 \n")
-				escreva("Carisma: 6 \n")
-				escreva("Sabedoria: 7 \n")
-				escreva("Furtividade: 20 \n")
-				escreva("Fôlego: 15 \n")
-
-				escreva("-----Descrição----- \n")
-				escreva(". \n")
-				escreva("Você dedicou sua vida servindo à nação por debaixo dos panos, se infiltrando em embaixadas, espionando reuniões secretas e se livrando de inimigos do estado.  \n")
-				escreva("Tudo que começa um dia chega ao fim, e com sua carreia de agente secreto não foi diferente. Como recompensa pelos seus anos de serviço, o governo te deu uma pequena loja no centro da cidade, onde você agora passas seus dias solitários. \n ")
-
-			     escreva("Você quer continuar com essa classe? \n[0]Sim \n[1]Não: ")
-			     leia(resposta)
-
-			     	enquanto(resposta != 0 e resposta != 1){
-			     		escreva("Opção inválida.")
-			     		leia(resposta)
-			     }
-
-			     se(resposta == 0){
-
-			     	vida = 10
-			     	vida_maxima = 10
-			     	forca = 4
-			     	constituicao = 2
-			     	destreza_maximo = 2
-			     	destreza = 16
-			     	inteligencia = 12
-			     	carisma = 6
-			     	sabedoria = 7
-			     	furtividade = 20
-			     	folego = 15
-			     	folego_maximo = 15
-			     	mana = 0
-			     	mana_maximo = 0
-
-					ataques[0] = "Ataque com Faca"
-					ataques[2] = "Pistola Silenciada"
-
-			     	pocao_cura = 3
-			     	pocao_mana = 0
-			     	trembolona = 0
-
-					inventario[0] = "Pistola Silenciada"	
-					inventario[1] = "Faca"
-					inventario[2] = "Poção de Cura"
-					
 			     }
 			     limpa()
 				pare
@@ -428,14 +371,30 @@ programa
 
 				const_inimigo = 15
 				
-				vida_inimigo = 52
-				vida_inimigo_max = 52
+				vida_inimigo = 40
+				vida_inimigo_max = 40
 				
 				folego_inimigo = 18
 				folego_inimigo_max = 18
 				
 				mana_inimigo = 0
 				mana_inimigo_max = 0
+			}
+			senao se(nome_inimigo == "Lagartixa Tropical"){
+
+				destreza_inimigo = 14
+				destreza_inimigo_max = 14
+
+				const_inimigo = 16
+
+				vida_inimigo = 100
+				vida_inimigo_max = 100
+
+				folego_inimigo = 25
+				folego_inimigo_max = 25
+
+				mana_inimigo = 20
+				mana_inimigo_max = 20
 			}
 
 			enquanto(vida_inimigo > 0 e vida > 0){
@@ -568,27 +527,6 @@ programa
 							u.aguarde(2000)
 						}
 					}
-					senao se(golpe == 3 e ataques[2] == "Pistola Silenciada" e inventario[0] == "Pistola Silenciada" e folego >= 8){
-					
-						folego -= 8
-
-						acerto = u.sorteia(0, 20)
-
-						se(acerto >= destreza_inimigo){
-							dano = u.sorteia(5, 15)
-							escreva("O inimigo tomou ", dano, " de dano.")
-							vida_inimigo -= dano
-							u.aguarde(2000)
-							limpa()
-
-						}
-
-						senao{
-							escreva("Você errou o ataque.")
-							u.aguarde(2000)
-						}
-						
-					}
 					senao se(golpe == 2 e ataques[1] == "Arco e Flecha" e inventario[0] == "Flechas" e flechas > 0 e inventario[1] == "Arco de Combate" e folego >= 10){
 						
 						folego -= 10
@@ -612,7 +550,7 @@ programa
 					}
 					senao se(golpe == 2 e ataques[1] == "Soco" e folego >= 8){
 						
-						folego -= 8
+						folego -= 5
 
 						acerto = u.sorteia(0, 20)
 
@@ -1167,6 +1105,56 @@ programa
 
 			senao{
 				pare
+			}
+		}
+	}
+
+	funcao lagartixa_tropical(){
+		inteiro acao_utilizada, acerto, dano
+		
+		enquanto(folego_inimigo > 0){
+			acao_utilizada = u.sorteia(0, 100)
+
+			se(acao_utilizada < 22 e folego_inimigo >= 10){		//linguada
+
+				folego_inimigo -= 10
+				acerto = u.sorteia(0, 20)
+
+				se(acerto >= destreza){
+					dano = u.sorteia(5, 10)
+					vida -= dano
+					escreva("A Lagartixa te dá uma linguada, dando ", dano, " de dano.\n")
+					escreva("Você fica coberto por saliva, te dando um enorme nojo.")
+					u.aguarde(4000)
+					limpa()					
+				}
+				senao{
+					escreva("A Lagartixa errou o ataque.")
+					u.aguarde(3000)
+					limpa()
+				}
+			}
+
+			senao se(vida_inimigo <= 25 e acao_utilizada > 22 e acao_utilizada < 45 e folego_inimigo >= 15){		//rabada
+				
+				escreva("A Lagartixa furiosamente utiliza a cauda como uma espada.\n")
+				
+				folego -= 15
+				acerto = u.sorteia(0, 20)
+
+				se(acerto >= destreza){
+					dano = u.sorteia(10, 15)
+					vida -= dano
+					escreva("Ela te acerta, dando ", dano, " de dano.")
+					u.aguarde(4000)
+					limpa()
+				}
+				senao{
+					escreva("Mas ela erra o ataque.")
+					u.aguarde(4000)
+					limpa()
+				}
+				
 			}
 		}
 	}

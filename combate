@@ -469,6 +469,24 @@ programa
 							u.aguarde(2000)
 						}
 					}
+						senao se(golpe == 3 e ataques[2] == "atordoar" e folego >= 5 ){
+						folego -= 5
+
+						acerto = u.sorteia(0, 20)
+
+						se(acerto >= destreza_inimigo){
+							dano = u.sorteia(1, 4)
+							escreva("O inimigo tomou ", dano, " de dano.")
+							vida_inimigo -= dano
+							u.aguarde(2000)
+							limpa()
+							
+						}
+						senao{
+							escreva("Você errou o ataque.")
+							u.aguarde(3000)
+						}
+						
 					senao se(golpe == 1 e ataques[0] == "Ataque com Faca" e inventario[1] == "Faca" e folego >= 8){
 						
 						folego -= 8

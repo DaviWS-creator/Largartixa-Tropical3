@@ -6,9 +6,12 @@ programa
 	inteiro trembolona, pocao_mana, pocao_cura
 	inteiro flechas
 	inteiro vida_inimigo, vida_inimigo_max, destreza_inimigo, destreza_inimigo_max, folego_inimigo, folego_inimigo_max, mana_inimigo, mana_inimigo_max, const_inimigo
+	
 	logico envenenado = falso
 	logico imobilizado = falso
 	logico habilidade_furtividade = falso
+	logico stun = verdadeiro
+	
 	cadeia inventario[10]
 	cadeia ataques[4]
 	cadeia magias[4]
@@ -121,6 +124,7 @@ programa
 
 			     	ataques[0] = "Ataque com Machado"
 			     	ataques[1] = "Soco"
+			     	ataques[2] = "atordoar" //habilidade teste sera liberada durante o jogo
 			     }
 			     limpa()
 			     pare
@@ -312,6 +316,7 @@ programa
 			escreva("Você entra em um combate contra ", nome_inimigo, ".")
 			u.aguarde(3000)
 			limpa()
+
 			
 			se(nome_inimigo == "Aranha"){     //aranha peão
 
@@ -474,10 +479,9 @@ programa
 
 						acerto = u.sorteia(0, 20)
 
-						se(acerto >= destreza_inimigo){
-							dano = u.sorteia(1, 4)
-							escreva("O inimigo tomou ", dano, " de dano.")
-							vida_inimigo -= dano
+						se(acerto >= const_inimigo + 2){
+							escreva("O inimigo ficou atordoado dificultando sua esquiva e seus acertos\n")
+							stun = verdadeiro 
 							u.aguarde(2000)
 							limpa()
 							
@@ -486,7 +490,7 @@ programa
 							escreva("Você errou o ataque.")
 							u.aguarde(3000)
 						}
-						
+						}
 					senao se(golpe == 1 e ataques[0] == "Ataque com Faca" e inventario[1] == "Faca" e folego >= 8){
 						
 						folego -= 8
@@ -911,6 +915,8 @@ programa
 
 	enquanto(folego_inimigo > 0){
 
+		stunar()
+
 		acao_utilizada = u.sorteia(0, 100)
 		
 			se(acao_utilizada <= 49 e folego_inimigo >= 8){   //mordida
@@ -1176,16 +1182,31 @@ programa
 			}
 		}
 	}
-}
+	funcao stunar ()
+	{
+		inteiro off_stun , teste_const
 
-/* $$$ Portugol Studio $$$ 
- * 
- * Esta seção do arquivo guarda informações do Portugol Studio.
- * Você pode apagá-la se estiver utilizando outro editor.
- * 
- * @POSICAO-CURSOR = 8730; 
- * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = ;
- * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
- * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
- */
+		se( stun == verdadeiro )
+		{
+			destreza_inimigo -= 3
+			teste_const = 16
+			enquanto ( stun == verdadeiro e folego_inimigo <= 4)
+			{
+				off_stun = Util.sorteia(1,20)
+			
+				se ( off_stun >= teste_const)
+				{
+					stun = falso
+				}
+				teste_const = teste_const - 2
+			}
+			folego_inimigo -4
+		}
+		
+		
+	}
+	funcao status()
+	{
+		
+	}
+}

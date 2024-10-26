@@ -50,7 +50,7 @@ programa
 		u.aguarde(3000)
 		limpa()*/
 		escolha_classe()
-		nome_inimigo = "Aranha Gigante"
+		nome_inimigo = "Lagartixa Tropical"
 		combate()
 	}
 
@@ -840,6 +840,9 @@ programa
 				senao se(nome_inimigo == "Comandante Escorpião"){
 					comandante_escorpiao()
 				}
+				senao se(nome_inimigo == "Lagartixa Tropical"){
+					lagartixa_tropical()
+				}
 				
 				folego = folego_maximo
 				mana = mana_maximo
@@ -1133,13 +1136,15 @@ programa
 		}
 	}
 
-	funcao lagartixa_tropical(){
+	funcao lagartixa_tropical(){			//Lagartixa Tropical. Ela está tão consumida pelo ódio que não consegue recuar. Deixo bem claro que esta é uma CARACTERÍSTICA DO JOGO, e não uma falta de habilidade do programador que vos fala.
 		inteiro acao_utilizada, acerto, dano
-		
-		enquanto(folego_inimigo > 0){
-			acao_utilizada = u.sorteia(0, 100)
 
-			se(acao_utilizada < 22 e folego_inimigo >= 10){		//linguada
+		
+		enquanto(folego_inimigo > 0 e mana_inimigo > 0){
+			
+			acao_utilizada = u.sorteia(0, 100)
+			
+			se(acao_utilizada <= 24  e folego_inimigo >= 10){		//linguada
 
 				folego_inimigo -= 10
 				acerto = u.sorteia(0, 20)
@@ -1159,11 +1164,11 @@ programa
 				}
 			}
 
-			senao se(vida_inimigo <= 25 e acao_utilizada > 22 e acao_utilizada < 45 e folego_inimigo >= 15){		//rabada
+			senao se(acao_utilizada >= 25 e acao_utilizada <= 50 e folego_inimigo >= 15){		//rabada
 				
 				escreva("A Lagartixa furiosamente utiliza a cauda como uma espada.\n")
 				
-				folego -= 15
+				folego_inimigo -= 15
 				acerto = u.sorteia(0, 20)
 
 				se(acerto >= destreza){
@@ -1178,7 +1183,53 @@ programa
 					u.aguarde(4000)
 					limpa()
 				}
+			}
 				
+			
+			senao se(acao_utilizada >= 51 e acao_utilizada <= 75 e mana_inimigo >= 8){	//magia de cura
+
+				se(vida_inimigo < vida_inimigo_max){
+					mana_inimigo -= 8						
+					dano = u.sorteia(5, 25)
+					vida_inimigo += dano
+					se(vida_inimigo > vida_inimigo_max){							
+						vida_inimigo = vida_inimigo - (vida_inimigo-vida_inimigo_max)
+						escreva("A Lagartixa Tropical curou sua vida ao máximo.")						
+						u.aguarde(2000)
+						limpa()
+					}
+					senao{
+						escreva("A Lagartixa Tropical curou ", dano, " pontos de vida.")
+						u.aguarde(2000)
+						limpa()
+					}
+				}
+				
+			}
+
+			senao se(acao_utilizada >= 76 e mana_inimigo >= 10){			//fogo tropical
+				
+				mana_inimigo -= 10
+				acerto = u.sorteia(0, 20)
+
+				se(acerto >= destreza){
+
+					dano = u.sorteia(10, 20)
+					escreva("A Lagartixa cospe seu Fogo Tropical, dando ", dano, " de dano.")
+					vida -= dano
+					u.aguarde(3000)
+					limpa()
+				}
+
+				senao{
+					escreva("A Lagartixa Tropical errou o ataque.")
+					u.aguarde(3000)
+					limpa()
+				}
+			}
+
+			senao{
+				pare
 			}
 		}
 	}
@@ -1200,7 +1251,7 @@ programa
 				}
 				teste_const = teste_const - 2
 			}
-			folego_inimigo -4
+			folego_inimigo -= 4
 		}
 		
 		
@@ -1210,3 +1261,4 @@ programa
 		
 	}
 }
+

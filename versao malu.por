@@ -16,6 +16,7 @@ programa
 	cadeia ataques_inimigo[4]   //inclui ataques físicos e magias
 	cadeia nome_inimigo = ""
 	cadeia classe
+	cadeia classe1
 	logico	stun = falso
 	
 	//Stats dos personagens
@@ -32,8 +33,11 @@ programa
 	funcao inicio()
 	{
 		//intro()
-		parte1()
-		parte2()
+		//parte1()
+	//	parte2()
+	nome_inimigo = "Aranha"
+	escolha_classe()
+	combate()
 		
 	
 	}
@@ -105,6 +109,7 @@ programa
 
 			     se(resposta == 0){
 
+			     	classe1 = "marombeira"
 			     	classe = "Marombeira"
 			     	vida = 40
 			     	vida_maxima = 40
@@ -151,7 +156,7 @@ programa
 				escreva("Já adulto, você descobre dentro de si uma paixão pela arte da construção e manutenção das guitarras, se tornando um mestre luthier.  \n")
 				escreva("Após anos no ramo, você decide entrar em um período sabático, gerenciando uma pequena loja no centro da cidade. \n ")
 
-			     escreva("Você quer continuar com essa classe? \n[0]Sim \n[1]Não: ")
+			     escreva("Você quer continuar com essa classe1? \n[0]Sim \n[1]Não: ")
 			     leia(resposta)
 
 			     	enquanto(resposta != 0 e resposta != 1){
@@ -161,6 +166,7 @@ programa
 
 			     se(resposta == 0){
 
+			     	classe1 = "luthier"
 			     	classe = "Luthier"
 			     	vida = 20
 			     	vida_maxima = 20
@@ -221,6 +227,7 @@ programa
 			     se(resposta == 0){
 
 			     	classe = "Professora de Química"
+			     	classe1 = "professor de quimica"
 			     	vida = 25
 			     	vida_maxima = 25
 			     	forca = 6
@@ -276,6 +283,7 @@ programa
 			     se(resposta == 0){
 
 			     	classe = "Política"
+					classe1 = "politico"
 			     	vida = 15
 			     	vida_maxima = 15
 			     	forca = 8
@@ -334,6 +342,7 @@ programa
 			     se(resposta == 0){
 
 			     	classe = "Agente Secreta"
+					classe1 = "agente secreto"
 			     	vida = 10
 			     	vida_maxima = 10
 			     	forca = 4
@@ -1676,19 +1685,19 @@ funcao combate(){
 		}
 	}
 	funcao teste(){
-		se(classe == "marombeiro")
+		se(classe1 == "marombeiro")
 		{
 			ataques[2] = "Atordoar"
 		}
-		senao se(classe == "luthier")
+		senao se(classe1 == "luthier")
 		{
 			ataques[2] =  "Amplificador"
 		}
-		senao se(classe == "professor de quimica")
+		senao se(classe1 == "professor de quimica")
 		{
 			magias[2] = "Relampago"
 		}
-		senao se(classe == "politico")
+		senao se(classe1 == "politico")
 		{
 			ataques[2] = "Mentiras"
 		}

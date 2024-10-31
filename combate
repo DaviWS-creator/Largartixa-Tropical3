@@ -10,13 +10,14 @@ programa
 	logico envenenado = falso
 	logico imobilizado = falso
 	logico habilidade_furtividade = falso
-	logico stun = verdadeiro
+	logico stun = falso
 	
 	cadeia inventario[10]
 	cadeia ataques[4]
 	cadeia magias[4]
 	cadeia ataques_inimigo[4]   //inclui ataques físicos e magias
 	cadeia nome_inimigo = ""
+	cadeia classe
 	
 	//Stats dos personagens
 	//Vida varia conforme o personagem toma dano e se cura, já a vida máxima sempre permanece a mesma.
@@ -50,7 +51,7 @@ programa
 		u.aguarde(3000)
 		limpa()*/
 		escolha_classe()
-		nome_inimigo = "Lagartixa Tropical"
+		nome_inimigo = "Aranha Gigante"
 		combate()
 	}
 
@@ -68,7 +69,6 @@ programa
 			escreva("2 --> Luthier \n")
 			escreva("3 --> Professor de Química \n")
 			escreva("4 --> Político \n")
-			escreva("5 --> Agente Secreto \n")
 			escreva("Escolha sua classe: ")
 			leia(resposta)
 			
@@ -100,6 +100,7 @@ programa
 
 			     se(resposta == 0){
 
+			     	classe = "marombeiro"
 			     	vida = 40
 			     	vida_maxima = 40
 			     	forca = 20
@@ -124,14 +125,15 @@ programa
 
 			     	ataques[0] = "Ataque com Machado"
 			     	ataques[1] = "Soco"
-			     	ataques[2] = "atordoar" //habilidade teste sera liberada durante o jogo
+			     	teste() //habilidade teste sera liberada durante o jogo
+			     	
 			     }
 			     limpa()
 			     pare
 
 			     caso 2:
 			     escreva("-----LUTHIER----- \n")
-			     //escreva("Pontos de Vida: 20 \n")
+			     //escreva("Pontos de Vida: 20 \n")inteiro classe
 				escreva("Força: 6 \n")
 				escreva("Constituição: 9 \n")
 				escreva("Destreza: 15 \n")
@@ -156,6 +158,7 @@ programa
 
 			     se(resposta == 0){
 
+			     	classe = "luthier"
 			     	vida = 20
 			     	vida_maxima = 20
 			     	forca = 6
@@ -182,6 +185,7 @@ programa
 			     	inventario[1] = "Arco de Combate"
 			     	inventario[2] = "Poção de Cura"
 			     	inventario[3] = "Lança"
+			     	teste() //habilidades testes serao liberadas durante o jogo
 
 			     }
 			     limpa()
@@ -214,6 +218,7 @@ programa
 
 			     se(resposta == 0){
 
+			     	classe = "professor de quimica" 
 			     	vida = 25
 			     	vida_maxima = 25
 			     	forca = 6
@@ -237,6 +242,7 @@ programa
 			     	
 		     		magias[0] = "Cura"
 		     		magias[1] = "Bola de Energia"
+		     		teste() //habilidades testes serao liberadas durante o jogo
 			     }
 			     limpa()
 				pare
@@ -268,6 +274,7 @@ programa
 
 			     se(resposta == 0){
 
+			     	classe = "politico"
 			     	vida = 15
 			     	vida_maxima = 15
 			     	forca = 8
@@ -293,7 +300,7 @@ programa
 			     	inventario[2] = "Poção de Cura"
 
 			     	//Essa classe não foi feita pensando em combate, e sim em utilizar a lábia para não ter que lutar.
-
+					teste() //habilidades testes serao liberadas durante o jogo
 			     }
 			     limpa()
 				pare
@@ -474,7 +481,26 @@ programa
 							u.aguarde(2000)
 						}
 					}
-						senao se(golpe == 3 e ataques[2] == "atordoar" e folego >= 5 ){
+					senao se(golpe == 2 e ataques[1] == "Soco" e folego >= 8){
+						
+						folego -= 5
+
+						acerto = u.sorteia(0, 20)
+
+						se(acerto >= destreza_inimigo){
+							dano = u.sorteia(1, 4)
+							escreva("O inimigo tomou ", dano, " de dano.")
+							vida_inimigo -= dano
+							u.aguarde(2000)
+							limpa()
+							
+						}
+						senao{
+							escreva("Você errou o ataque.")
+							u.aguarde(3000)
+						}
+					}
+						senao se(golpe == 3 e ataques[2] == "Atordoar" e folego >= 5 ){
 						folego -= 5
 
 						acerto = u.sorteia(0, 20)
@@ -482,6 +508,7 @@ programa
 						se(acerto >= const_inimigo + 2){
 							escreva("O inimigo ficou atordoado dificultando sua esquiva e seus acertos\n")
 							stun = verdadeiro 
+							destreza_inimigo -= 2
 							u.aguarde(2000)
 							limpa()
 							
@@ -510,7 +537,6 @@ programa
 							u.aguarde(2000)
 						}
 					}
-
 						senao se(golpe == 2 e ataques[1] == "Cusparada" e folego >= 1){
 						
 						folego --
@@ -526,6 +552,30 @@ programa
 
 						senao{
 							escreva("Você errou o ataque.")
+							u.aguarde(2000)
+						}
+						}
+						senao se(golpe == 3 e ataques[2] == "Mentiras" e folego >= 1){
+						
+						folego --
+
+						acerto = u.sorteia(0, 20)
+
+						escreva("voce começa a contar um monte de promessas e coisas que voce faria no seu mandato")
+
+						u.aguarde(1000)
+
+						se(acerto >= destreza_inimigo){
+
+							escreva(", o inimigo fica confuso com tudo isso deixando sem saber o que fazer")
+							u.aguarde(2000)
+							stun = verdadeiro
+							destreza_inimigo -= 2
+							limpa()
+						}
+
+						senao{
+							escreva(", o inimigo apenas o ignora.")
 							u.aguarde(2000)
 						}
 						}
@@ -570,25 +620,31 @@ programa
 							u.aguarde(2000)
 						}
 					}
-					senao se(golpe == 2 e ataques[1] == "Soco" e folego >= 8){
+						senao se(golpe == 3 e ataques[2] == "Amplificador" e folego >= 1){
 						
-						folego -= 5
+						folego -= 3
 
 						acerto = u.sorteia(0, 20)
 
+						escreva("voce pega um amplificador danificado fazendo um chiado horrivel")
+
+						u.aguarde(1000)
+						
 						se(acerto >= destreza_inimigo){
-							dano = u.sorteia(1, 4)
-							escreva("O inimigo tomou ", dano, " de dano.")
-							vida_inimigo -= dano
+
+							escreva(", o inimigo fica ensurdecido com o som deixando ele tonto")
 							u.aguarde(2000)
+							stun = verdadeiro
+							destreza_inimigo -= 2
 							limpa()
-							
 						}
+
 						senao{
-							escreva("Você errou o ataque.")
-							u.aguarde(3000)
+							escreva(", o inimigo resiste ao som horrivel")
+							u.aguarde(2000)
 						}
-					}
+						}
+					
 					senao se(golpe == 0){
 						escreva("Voltando")
 						u.aguarde(500)
@@ -660,6 +716,30 @@ programa
 							limpa()
 						}
 					}
+					 senao se(magico == 3 e magias[2] == "Relampago" e mana >= 4){
+						
+						mana -= 8
+
+						escreva("voce invoca a mana dos ceus fazendo um enorme relampago com um som ensurdecedor")
+
+						u.aguarde(1000)
+
+						acerto = u.sorteia(0, 20)
+
+						se(acerto >= destreza_inimigo){
+							escreva(" , fazendo o ficar tonto dificultando sua mobilidade e açoes")
+							u.aguarde(2000)
+							stun = verdadeiro
+							destreza_inimigo -= 2
+							limpa()
+
+						}
+						senao{
+							escreva(" , Porem o inimigo nao foi afetado.")
+							u.aguarde(3000)
+							limpa()
+						}
+					 }
 					senao se(magico == 0){
 						escreva("Voltando")
 						u.aguarde(500)
@@ -866,8 +946,10 @@ programa
 		inteiro dano
 
 		enquanto(folego_inimigo > 0){
-			
+
+			stunar()
 			acao_utilizada = u.sorteia(0, 100)
+
 
 			se(acao_utilizada <= 90 e folego_inimigo >= 3){   //mordida
 
@@ -914,12 +996,12 @@ programa
 		
 		inteiro acao_utilizada
 		inteiro acerto
-		inteiro dano
+		inteiro dano , n1 = 0
 
 	enquanto(folego_inimigo > 0){
 
 		stunar()
-
+		n1++
 		acao_utilizada = u.sorteia(0, 100)
 		
 			se(acao_utilizada <= 49 e folego_inimigo >= 8){   //mordida
@@ -991,6 +1073,8 @@ programa
 
 		enquanto(folego_inimigo > 0){
 
+			stunar ()
+
 			acao_utilizada = u.sorteia(0, 100)
 			
 			se(acao_utilizada <= 90 e folego_inimigo >= 2){   //ferrão
@@ -1042,6 +1126,8 @@ programa
 		inteiro dano
 
 		enquanto(folego_inimigo > 0){
+
+			stunar()
 
 			acao_utilizada = u.sorteia(0, 100)
 
@@ -1139,6 +1225,7 @@ programa
 	funcao lagartixa_tropical(){			//Lagartixa Tropical. Ela está tão consumida pelo ódio que não consegue recuar. Deixo bem claro que esta é uma CARACTERÍSTICA DO JOGO, e não uma falta de habilidade do programador que vos fala.
 		inteiro acao_utilizada, acerto, dano
 
+		stunar()
 		
 		enquanto(folego_inimigo > 0 e mana_inimigo > 0){
 			
@@ -1235,26 +1322,46 @@ programa
 	}
 	funcao stunar ()
 	{
-		inteiro off_stun , teste_const
+		inteiro off_stun , teste_const, n = 0
 
 		se( stun == verdadeiro )
 		{
 			destreza_inimigo -= 3
 			teste_const = 16
-			enquanto ( stun == verdadeiro e folego_inimigo <= 4)
+			enquanto ( stun == verdadeiro e folego_inimigo >= 4)
 			{
 				off_stun = Util.sorteia(1,20)
+				n ++
 			
 				se ( off_stun >= teste_const)
 				{
 					stun = falso
+					escreva(nome_inimigo, " consegue sair do stun")
+					u.aguarde(1000)
+					limpa()
 				}
 				teste_const = teste_const - 2
+				folego_inimigo -= 4
 			}
-			folego_inimigo -= 4
 		}
-		
-		
+	}
+	funcao teste(){
+	/*	stun = verdadeiro
+		se(classe == "marombeiro")
+		{
+			ataques[2] = "Atordoar"
+		}
+		senao se(classe == "luthier")
+		{
+			ataques[2] =  "Amplificador"
+		}
+		senao se(classe == "professor de quimica")
+		{
+			magias[2] = "Relampago"
+		}
+		senao se(classe == "politico")
+		{
+			ataques[2] = "Mentiras"
+		}*/
 	}
 }
-

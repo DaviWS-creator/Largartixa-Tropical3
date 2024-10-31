@@ -32,12 +32,10 @@ programa
 
 	funcao inicio()
 	{
-		//intro()
-		//parte1()
-	//	parte2()
-	nome_inimigo = "Aranha"
-	escolha_classe()
-	combate()
+		intro()
+		parte1()
+		parte2()
+	
 		
 	
 	}
@@ -109,7 +107,7 @@ programa
 
 			     se(resposta == 0){
 
-			     	classe1 = "marombeira"
+			     	classe1 = "marombeiro"
 			     	classe = "Marombeira"
 			     	vida = 40
 			     	vida_maxima = 40
@@ -135,6 +133,7 @@ programa
 
 			     	ataques[0] = "Ataque com Machado"
 			     	ataques[1] = "Soco"
+			     	teste ()
 			     }
 			     limpa()
 			     pare
@@ -194,6 +193,7 @@ programa
 			     	inventario[1] = "Arco de Combate"
 			     	inventario[2] = "Poção de Cura"
 			     	inventario[3] = "Lança"
+			     	teste()
 
 			     }
 			     limpa()
@@ -251,6 +251,7 @@ programa
 			     	
 		     		magias[0] = "Cura"
 		     		magias[1] = "Bola de Energia"
+		     		teste()
 			     }
 			     limpa()
 				pare
@@ -307,6 +308,7 @@ programa
 			     	
 			     	inventario[1] = "Faca"
 			     	inventario[2] = "Poção de Cura"
+			     	teste()
 
 			     	//Essa classe não foi feita pensando em combate, e sim em utilizar a lábia para não ter que lutar.
 

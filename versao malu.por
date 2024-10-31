@@ -1287,7 +1287,7 @@ funcao combate(){
 
 	}
 
-	*/funcao aranha(){
+	funcao aranha(){
 
 		inteiro acao_utilizada  //define aleatoriamente a ação do inimigo
 		inteiro acerto

@@ -1256,9 +1256,5 @@ programa
 		
 		
 	}
-	funcao status()
-	{
-		
-	}
 }
 

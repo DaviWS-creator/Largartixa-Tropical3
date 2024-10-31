@@ -16,6 +16,7 @@ programa
 	cadeia ataques_inimigo[4]   //inclui ataques físicos e magias
 	cadeia nome_inimigo = ""
 	cadeia classe
+	logico	stun = falso
 	
 	//Stats dos personagens
 	//Vida varia conforme o personagem toma dano e se cura, já a vida máxima sempre permanece a mesma.
@@ -519,7 +520,7 @@ programa
 		
 	}
 	
-	funcao combate(){
+funcao combate(){
 			inteiro acao, dano
 			inteiro acerto //defini se um ataque vai acertar ou não
 			inteiro golpe //escolhe o ataque físico desejado
@@ -529,6 +530,7 @@ programa
 			escreva("Você entra em um combate contra ", nome_inimigo, ".")
 			u.aguarde(3000)
 			limpa()
+
 			
 			se(nome_inimigo == "Aranha"){     //aranha peão
 
@@ -588,14 +590,30 @@ programa
 
 				const_inimigo = 15
 				
-				vida_inimigo = 52
-				vida_inimigo_max = 52
+				vida_inimigo = 40
+				vida_inimigo_max = 40
 				
 				folego_inimigo = 18
 				folego_inimigo_max = 18
 				
 				mana_inimigo = 0
 				mana_inimigo_max = 0
+			}
+			senao se(nome_inimigo == "Lagartixa Tropical"){
+
+				destreza_inimigo = 14
+				destreza_inimigo_max = 14
+
+				const_inimigo = 16
+
+				vida_inimigo = 100
+				vida_inimigo_max = 100
+
+				folego_inimigo = 25
+				folego_inimigo_max = 25
+
+				mana_inimigo = 20
+				mana_inimigo_max = 20
 			}
 
 			enquanto(vida_inimigo > 0 e vida > 0){
@@ -670,6 +688,43 @@ programa
 							u.aguarde(2000)
 						}
 					}
+					senao se(golpe == 2 e ataques[1] == "Soco" e folego >= 8){
+						
+						folego -= 5
+
+						acerto = u.sorteia(0, 20)
+
+						se(acerto >= destreza_inimigo){
+							dano = u.sorteia(1, 4)
+							escreva("O inimigo tomou ", dano, " de dano.")
+							vida_inimigo -= dano
+							u.aguarde(2000)
+							limpa()
+							
+						}
+						senao{
+							escreva("Você errou o ataque.")
+							u.aguarde(3000)
+						}
+					}
+						senao se(golpe == 3 e ataques[2] == "Atordoar" e folego >= 5 ){
+						folego -= 5
+
+						acerto = u.sorteia(0, 20)
+
+						se(acerto >= const_inimigo + 2){
+							escreva("O inimigo ficou atordoado dificultando sua esquiva e seus acertos\n")
+							stun = verdadeiro 
+							destreza_inimigo -= 2
+							u.aguarde(2000)
+							limpa()
+							
+						}
+						senao{
+							escreva("Você errou o ataque.")
+							u.aguarde(3000)
+						}
+						}
 					senao se(golpe == 1 e ataques[0] == "Ataque com Faca" e inventario[1] == "Faca" e folego >= 8){
 						
 						folego -= 8
@@ -689,7 +744,6 @@ programa
 							u.aguarde(2000)
 						}
 					}
-
 						senao se(golpe == 2 e ataques[1] == "Cusparada" e folego >= 1){
 						
 						folego --
@@ -705,6 +759,30 @@ programa
 
 						senao{
 							escreva("Você errou o ataque.")
+							u.aguarde(2000)
+						}
+						}
+						senao se(golpe == 3 e ataques[2] == "Mentiras" e folego >= 1){
+						
+						folego --
+
+						acerto = u.sorteia(0, 20)
+
+						escreva("voce começa a contar um monte de promessas e coisas que voce faria no seu mandato")
+
+						u.aguarde(1000)
+
+						se(acerto >= destreza_inimigo){
+
+							escreva(", o inimigo fica confuso com tudo isso deixando sem saber o que fazer")
+							u.aguarde(2000)
+							stun = verdadeiro
+							destreza_inimigo -= 2
+							limpa()
+						}
+
+						senao{
+							escreva(", o inimigo apenas o ignora.")
 							u.aguarde(2000)
 						}
 						}
@@ -728,27 +806,6 @@ programa
 							u.aguarde(2000)
 						}
 					}
-					senao se(golpe == 3 e ataques[2] == "Pistola Silenciada" e inventario[0] == "Pistola Silenciada" e folego >= 8){
-					
-						folego -= 8
-
-						acerto = u.sorteia(0, 20)
-
-						se(acerto >= destreza_inimigo){
-							dano = u.sorteia(5, 15)
-							escreva("O inimigo tomou ", dano, " de dano.")
-							vida_inimigo -= dano
-							u.aguarde(2000)
-							limpa()
-
-						}
-
-						senao{
-							escreva("Você errou o ataque.")
-							u.aguarde(2000)
-						}
-						
-					}
 					senao se(golpe == 2 e ataques[1] == "Arco e Flecha" e inventario[0] == "Flechas" e flechas > 0 e inventario[1] == "Arco de Combate" e folego >= 10){
 						
 						folego -= 10
@@ -770,25 +827,31 @@ programa
 							u.aguarde(2000)
 						}
 					}
-					senao se(golpe == 2 e ataques[1] == "Soco" e folego >= 8){
+						senao se(golpe == 3 e ataques[2] == "Amplificador" e folego >= 1){
 						
-						folego -= 8
+						folego -= 3
 
 						acerto = u.sorteia(0, 20)
 
+						escreva("voce pega um amplificador danificado fazendo um chiado horrivel")
+
+						u.aguarde(1000)
+						
 						se(acerto >= destreza_inimigo){
-							dano = u.sorteia(1, 4)
-							escreva("O inimigo tomou ", dano, " de dano.")
-							vida_inimigo -= dano
+
+							escreva(", o inimigo fica ensurdecido com o som deixando ele tonto")
 							u.aguarde(2000)
+							stun = verdadeiro
+							destreza_inimigo -= 2
 							limpa()
-							
 						}
+
 						senao{
-							escreva("Você errou o ataque.")
-							u.aguarde(3000)
+							escreva(", o inimigo resiste ao som horrivel")
+							u.aguarde(2000)
 						}
-					}
+						}
+					
 					senao se(golpe == 0){
 						escreva("Voltando")
 						u.aguarde(500)
@@ -860,6 +923,30 @@ programa
 							limpa()
 						}
 					}
+					 senao se(magico == 3 e magias[2] == "Relampago" e mana >= 4){
+						
+						mana -= 8
+
+						escreva("voce invoca a mana dos ceus fazendo um enorme relampago com um som ensurdecedor")
+
+						u.aguarde(1000)
+
+						acerto = u.sorteia(0, 20)
+
+						se(acerto >= destreza_inimigo){
+							escreva(" , fazendo o ficar tonto dificultando sua mobilidade e açoes")
+							u.aguarde(2000)
+							stun = verdadeiro
+							destreza_inimigo -= 2
+							limpa()
+
+						}
+						senao{
+							escreva(" , Porem o inimigo nao foi afetado.")
+							u.aguarde(3000)
+							limpa()
+						}
+					 }
 					senao se(magico == 0){
 						escreva("Voltando")
 						u.aguarde(500)
@@ -1040,6 +1127,9 @@ programa
 				senao se(nome_inimigo == "Comandante Escorpião"){
 					comandante_escorpiao()
 				}
+				senao se(nome_inimigo == "Lagartixa Tropical"){
+					lagartixa_tropical()
+				}
 				
 				folego = folego_maximo
 				mana = mana_maximo
@@ -1180,7 +1270,6 @@ programa
 					escreva("A Barata se vê sozinha, com o corpo da Lagartixa Tropical em suas mãos.\n Ela se arrepende de tudo: de não ter ajudado a L. Radical e a L. Tropical. Ela se vê sozinha num mundo com apenas mágoa em seu coração e assim ela se mata.")
 				}
 
-")
 				retorne
 			}
 		
@@ -1463,16 +1552,145 @@ programa
 			}
 		}
 	}
+		funcao lagartixa_tropical(){			//Lagartixa Tropical. Ela está tão consumida pelo ódio que não consegue recuar. Deixo bem claro que esta é uma CARACTERÍSTICA DO JOGO, e não uma falta de habilidade do programador que vos fala.
+		inteiro acao_utilizada, acerto, dano
+
+		stunar()
+		
+		enquanto(folego_inimigo > 0 e mana_inimigo > 0){
+			
+			acao_utilizada = u.sorteia(0, 100)
+			
+			se(acao_utilizada <= 24  e folego_inimigo >= 10){		//linguada
+
+				folego_inimigo -= 10
+				acerto = u.sorteia(0, 20)
+
+				se(acerto >= destreza){
+					dano = u.sorteia(5, 10)
+					vida -= dano
+					escreva("A Lagartixa te dá uma linguada, dando ", dano, " de dano.\n")
+					escreva("Você fica coberto por saliva, te dando um enorme nojo.")
+					u.aguarde(4000)
+					limpa()					
+				}
+				senao{
+					escreva("A Lagartixa errou o ataque.")
+					u.aguarde(3000)
+					limpa()
+				}
+			}
+
+			senao se(acao_utilizada >= 25 e acao_utilizada <= 50 e folego_inimigo >= 15){		//rabada
+				
+				escreva("A Lagartixa furiosamente utiliza a cauda como uma espada.\n")
+				
+				folego_inimigo -= 15
+				acerto = u.sorteia(0, 20)
+
+				se(acerto >= destreza){
+					dano = u.sorteia(10, 15)
+					vida -= dano
+					escreva("Ela te acerta, dando ", dano, " de dano.")
+					u.aguarde(4000)
+					limpa()
+				}
+				senao{
+					escreva("Mas ela erra o ataque.")
+					u.aguarde(4000)
+					limpa()
+				}
+			}
+				
+			
+			senao se(acao_utilizada >= 51 e acao_utilizada <= 75 e mana_inimigo >= 8){	//magia de cura
+
+				se(vida_inimigo < vida_inimigo_max){
+					mana_inimigo -= 8						
+					dano = u.sorteia(5, 25)
+					vida_inimigo += dano
+					se(vida_inimigo > vida_inimigo_max){							
+						vida_inimigo = vida_inimigo - (vida_inimigo-vida_inimigo_max)
+						escreva("A Lagartixa Tropical curou sua vida ao máximo.")						
+						u.aguarde(2000)
+						limpa()
+					}
+					senao{
+						escreva("A Lagartixa Tropical curou ", dano, " pontos de vida.")
+						u.aguarde(2000)
+						limpa()
+					}
+				}
+				
+			}
+
+			senao se(acao_utilizada >= 76 e mana_inimigo >= 10){			//fogo tropical
+				
+				mana_inimigo -= 10
+				acerto = u.sorteia(0, 20)
+
+				se(acerto >= destreza){
+
+					dano = u.sorteia(10, 20)
+					escreva("A Lagartixa cospe seu Fogo Tropical, dando ", dano, " de dano.")
+					vida -= dano
+					u.aguarde(3000)
+					limpa()
+				}
+
+				senao{
+					escreva("A Lagartixa Tropical errou o ataque.")
+					u.aguarde(3000)
+					limpa()
+				}
+			}
+
+			senao{
+				pare
+			}
+		}
+	}
+	funcao stunar ()
+	{
+		inteiro off_stun , teste_const, n = 0
+
+		se( stun == verdadeiro )
+		{
+			destreza_inimigo -= 3
+			teste_const = 16
+			enquanto ( stun == verdadeiro e folego_inimigo >= 4)
+			{
+				off_stun = Util.sorteia(1,20)
+				n ++
+			
+				se ( off_stun >= teste_const)
+				{
+					stun = falso
+					escreva(nome_inimigo, " consegue sair do stun")
+					u.aguarde(1000)
+					limpa()
+				}
+				teste_const = teste_const - 2
+				folego_inimigo -= 4
+			}
+		}
+	}
+	funcao teste(){
+		se(classe == "marombeiro")
+		{
+			ataques[2] = "Atordoar"
+		}
+		senao se(classe == "luthier")
+		{
+			ataques[2] =  "Amplificador"
+		}
+		senao se(classe == "professor de quimica")
+		{
+			magias[2] = "Relampago"
+		}
+		senao se(classe == "politico")
+		{
+			ataques[2] = "Mentiras"
+		}
+	}
 }
-/* $$$ Portugol Studio $$$ 
- * 
- * Esta seção do arquivo guarda informações do Portugol Studio.
- * Você pode apagá-la se estiver utilizando outro editor.
- * 
- * @POSICAO-CURSOR = 33998; 
- * @DOBRAMENTO-CODIGO = [38, 375, 521];
- * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = ;
- * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
- * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
- */

@@ -373,7 +373,7 @@ programa
 }
 
 	funcao parte1(){
-		/*escreva("Após se tornar o último Lorde da Caixa d’água, a Lagartixa Tropical parou, encarando o corpo ensanguentado da Borboleta, sentindo conforto.\n\n")
+		escreva("Após se tornar o último Lorde da Caixa d’água, a Lagartixa Tropical parou, encarando o corpo ensanguentado da Borboleta, sentindo conforto.\n\n")
 		u.aguarde(5000)
 		escreva("Seu transe é abruptamente cortado pelo toque de uma das Lagartixas Radicais em seus ombros.\n\n")
 		u.aguarde(5000)
@@ -425,7 +425,7 @@ programa
 		u.aguarde(5000)
 		limpa()
 		
-		*/escreva("[1] Tomar chá\n[2] Recusar o chá: ")
+		escreva("[1] Tomar chá\n[2] Recusar o chá: ")
 		leia(escolhas)
 		limpa()
 
@@ -1169,7 +1169,18 @@ programa
 		}
 			se(escolhas == 2)
 			{
-				escreva("Você volta a sua vida normal, cria uma família e envelhece nunca sabendo\n o que aconteceu com a Lagartixa Radical e a sua velha amiga, Lagartixa Tropical")
+				escreva("Você se recusa a ajudar a Lagartixa não acreditando ou dizendo que não é problema dela.\n A Lagartixa se retira sem dizer uma palavra. Com passar do tempo, a L. Radical vai ficando cada vez mais forte e a Barata fica cuidando de sua loja, até que um dia a cidade inteira entra em caos. Há fogo por toda parte e pessoas são atacadas por Aranhas e Escorpiões. A Barata vê a L. tropical matando todo mundo. No outro lado da luta, ela vê uma outra Lagartixa com um tapa olho lutando bravemente. Após um tempo, você percebe que na verdade é a Lagartixa Radical. Antes que você pudesse dizer alguma coisa, a L. Tropical assassina com sangue frio a L. Radical L. A L. tropical vem até você  ediz:\n\n")
+				escreva("É uma pena, mas você tem que morrer.\n")
+				
+				nome_inimigo = "Lagartixa Tropical"
+				combate()
+				
+				se(vida >= 0)
+				{
+					escreva("A Barata se vê sozinha, com o corpo da Lagartixa Tropical em suas mãos.\n Ela se arrepende de tudo: de não ter ajudado a L. Radical e a L. Tropical. Ela se vê sozinha num mundo com apenas mágoa em seu coração e assim ela se mata.")
+				}
+
+")
 				retorne
 			}
 		

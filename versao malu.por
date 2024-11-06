@@ -697,6 +697,7 @@ funcao combate(){
 						senao{
 							escreva("Você errou o ataque.")
 							u.aguarde(2000)
+							limpa()
 						}
 					}
 					senao se(golpe == 2 e ataques[1] == "Soco" e folego >= 8){
@@ -716,6 +717,7 @@ funcao combate(){
 						senao{
 							escreva("Você errou o ataque.")
 							u.aguarde(3000)
+							limpa()
 						}
 					}
 						senao se(golpe == 3 e ataques[2] == "Atordoar" e folego >= 5 ){
@@ -734,6 +736,7 @@ funcao combate(){
 						senao{
 							escreva("Você errou o ataque.")
 							u.aguarde(3000)
+							limpa()
 						}
 						}
 					senao se(golpe == 1 e ataques[0] == "Ataque com Faca" e inventario[1] == "Faca" e folego >= 8){
@@ -753,6 +756,7 @@ funcao combate(){
 						senao{
 							escreva("Você errou o ataque.")
 							u.aguarde(2000)
+							limpa()
 						}
 					}
 						senao se(golpe == 2 e ataques[1] == "Cusparada" e folego >= 1){
@@ -771,6 +775,7 @@ funcao combate(){
 						senao{
 							escreva("Você errou o ataque.")
 							u.aguarde(2000)
+							limpa()
 						}
 						}
 						senao se(golpe == 3 e ataques[2] == "Mentiras" e folego >= 1){
@@ -795,6 +800,7 @@ funcao combate(){
 						senao{
 							escreva(", o inimigo apenas o ignora.")
 							u.aguarde(2000)
+							limpa()
 						}
 						}
 					senao se(golpe == 1 e ataques[0] == "Ataque com Lança" e inventario[3] == "Lança" e folego >= 8){
@@ -815,6 +821,7 @@ funcao combate(){
 						senao{
 							escreva("Você errou o ataque.")
 							u.aguarde(2000)
+							limpa()
 						}
 					}
 					senao se(golpe == 2 e ataques[1] == "Arco e Flecha" e inventario[0] == "Flechas" e flechas > 0 e inventario[1] == "Arco de Combate" e folego >= 10){
@@ -836,6 +843,7 @@ funcao combate(){
 						senao{
 							escreva("Você errou o ataque.")
 							u.aguarde(2000)
+							limpa()
 						}
 					}
 						senao se(golpe == 3 e ataques[2] == "Amplificador" e folego >= 1){
@@ -860,6 +868,7 @@ funcao combate(){
 						senao{
 							escreva(", o inimigo resiste ao som horrivel")
 							u.aguarde(2000)
+							limpa()
 						}
 						}
 					
